@@ -1,16 +1,18 @@
 package org.food.dao;
 
-import org.food.api.repository.Dao;
-import jakarta.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
-import java.util.List;
-import jakarta.persistence.EntityManager;
 
-@Repository
+import org.food.api.repository.Dao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import java.util.List;
+import javax.persistence.EntityManager;
+
+
+@Component
 public abstract class AbstractDao<T> implements Dao<T> {
 
-    @PersistenceContext
-    protected EntityManager entityManager;
+    @Autowired
+    EntityManager entityManager;
 
     private Class<T> entityClass;
 

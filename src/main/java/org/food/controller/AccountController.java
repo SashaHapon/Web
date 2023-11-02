@@ -14,15 +14,16 @@ import java.util.List;
 public class AccountController {
 
 
+    @Autowired
     private AccountService accountService;
 
+    @Autowired
     private ObjectMapper objectMapper;
 
 
-    @Autowired
-    public AccountController(AccountServiceImpl accountService, ObjectMapper objectMapper){
-        this.accountService = accountService;
-        this.objectMapper = objectMapper;
+
+    public AccountController(){
+
     }
 
 

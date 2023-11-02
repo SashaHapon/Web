@@ -1,6 +1,7 @@
 package org.food.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.persistence.EntityManager;
 import org.food.utils.PropertyUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.SharedEntityManagerCreator;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -45,6 +47,12 @@ public class PersistenceContext {
     }
 
     @Bean
+    public EntityManager entityManagerCreator(){
+        return SharedEntityManagerCreator.createSharedEntityManager(entityManagerFactory().getObject());
+    }
+
+
+    @Bean
     public PlatformTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
@@ -62,7 +70,7 @@ public class PersistenceContext {
         em.setEntityManagerInterface(hibernateJpaVendorAdapter.getEntityManagerInterface());
         em.setJpaVendorAdapter(hibernateJpaVendorAdapter);
         em.setJpaProperties(additionalProperties());
-        em.setPackagesToScan("com.model");
+        em.setPackagesToScan("org.food.model");
         return em;
     }
 

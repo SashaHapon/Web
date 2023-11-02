@@ -1,7 +1,7 @@
 package org.food.model;
 
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
 @Table(name = "account", schema = "mydb")
