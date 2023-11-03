@@ -7,9 +7,16 @@
       </PatternLayout>
     </File>
   </Appenders>
+
+    # Console appender
+    <Console name="stdout" target="SYSTEM_OUT">
+      # Pattern of log message for console appender
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %p %m%n"/>
+    </Console>
+
   <Loggers>
     <!-- avoid duplicated logs with additivity=false -->
-    <Logger name="com.mkyong" level="debug" additivity="false">
+    <Logger name="web" level="debug" additivity="false">
       <AppenderRef ref="LogToFile"/>
     </Logger>
     <Root level="trace">
