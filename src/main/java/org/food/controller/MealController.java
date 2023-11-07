@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -29,24 +30,24 @@ public class MealController {
         return mealDtoList;
     };
 
-    public MealDto addMeal(String json) throws JsonProcessingException {
+    public MealDto addMeal(String json) throws JsonProcessingException, IOException {
         MealDto mealDto = objectMapper.readValue(json, MealDto.class);
         mealService.addMeal(mealDto);
         return mealDto;
     };
 
-    public MealDto getMeal(String json) throws JsonProcessingException {
+    public MealDto getMeal(String json) throws JsonProcessingException, IOException {
         MealDto mealDto = objectMapper.readValue(json, MealDto.class);
         mealService.getMeal(mealDto);
         return mealDto;
     };
 
-    public void deleteMealById(String json) throws JsonProcessingException {
+    public void deleteMealById(String json) throws JsonProcessingException, IOException {
         MealDto mealDto = objectMapper.readValue(json, MealDto.class);
         mealService.deleteMealById(mealDto);
     };
 
-    void update(String json) throws JsonProcessingException {
+    void update(String json) throws JsonProcessingException, IOException {
 
         MealDto mealDto = objectMapper.readValue(json, MealDto.class);
         mealService.update(mealDto);

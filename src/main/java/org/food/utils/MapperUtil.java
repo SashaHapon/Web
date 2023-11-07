@@ -9,6 +9,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class MapperUtil {
             AccountDto accountDTO = objectMapper.readValue(json, AccountDto.class);
             return accountDTO;
 
-        } catch (JsonProcessingException e) {
+        } catch (IOException e) {
               throw new RuntimeException(e.getMessage());
         }
 

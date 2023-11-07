@@ -1,5 +1,6 @@
 package org.food.controller;
 
+import lombok.SneakyThrows;
 import org.food.api.service.OrderService;
 import org.food.dto.MealDto;
 import org.food.dto.OrderDto;
@@ -8,7 +9,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.food.utils.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
 import java.util.List;
+
 
 public class OrderController {
 
@@ -23,45 +26,45 @@ public class OrderController {
         this.objectMapper = objectMapper;
     }
 
-    public OrderDto createOrder(String json) throws JsonProcessingException {
+    public OrderDto createOrder(String json) throws JsonProcessingException, IOException {
 
         OrderDto orderDto = objectMapper.readValue(json, OrderDto.class);
         orderService.createOrder(orderDto);
         return orderDto;
     }
 
-    public OrderDto getOrder(String json) throws JsonProcessingException {
+    public OrderDto getOrder(String json) throws JsonProcessingException, IOException {
 
         OrderDto orderDto = objectMapper.readValue(json, OrderDto.class);
         orderService.getOrder(orderDto);
         return orderDto;
     }
 
-    public void addMeal(String json) throws JsonProcessingException {
+    public void addMeal(String json) throws JsonProcessingException, IOException {
 
         OrderDto orderDto = objectMapper.readValue(json, OrderDto.class);
         orderService.addMeal(orderDto);
     }
 
-    public void remove(String json) throws JsonProcessingException {
+    public void remove(String json) throws JsonProcessingException, IOException {
 
         OrderDto orderDto = objectMapper.readValue(json, OrderDto.class);
         orderService.removeMeal(orderDto);
     };
 
-    public List<MealDto> getAllMeals(String json) throws JsonProcessingException {
+    public List<MealDto> getAllMeals(String json) throws JsonProcessingException, IOException {
 
         OrderDto orderDto = objectMapper.readValue(json, OrderDto.class);
         return orderService.getAllMeals(orderDto);
     };
 
-    public void applyDiscount(String json) throws JsonProcessingException {
+    public void applyDiscount(String json) throws JsonProcessingException, IOException {
 
         OrderDto orderDto = objectMapper.readValue(json, OrderDto.class);
         orderService.applyDiscount(orderDto);
     }
 
-    public void checkPayment(String json) throws MyException, JsonProcessingException {
+    public void checkPayment(String json) throws MyException, JsonProcessingException, IOException {
 
         OrderDto orderDto = objectMapper.readValue(json, OrderDto.class);
         orderService.applyDiscount(orderDto);
