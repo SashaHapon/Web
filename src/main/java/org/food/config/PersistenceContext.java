@@ -70,7 +70,7 @@ public class PersistenceContext {
         em.setEntityManagerInterface(hibernateJpaVendorAdapter.getEntityManagerInterface());
         em.setJpaVendorAdapter(hibernateJpaVendorAdapter);
         em.setJpaProperties(additionalProperties());
-        em.setPackagesToScan("org.food.model");
+        em.setPackagesToScan("org.food.model", "org.food.security.model");
         return em;
     }
 
@@ -78,6 +78,7 @@ public class PersistenceContext {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        properties.setProperty("hibernate.show_sql", "true");
         return properties;
     }
 
