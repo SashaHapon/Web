@@ -1,4 +1,4 @@
-package org.food.model;
+package org.food.security.model;
 
 import lombok.Data;
 import org.food.security.model.User;

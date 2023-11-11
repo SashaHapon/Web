@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.food.model.RefreshToken;
+import org.food.security.model.RefreshToken;
 import org.food.security.model.ERole;
 import org.food.security.model.Role;
 import org.food.security.model.User;

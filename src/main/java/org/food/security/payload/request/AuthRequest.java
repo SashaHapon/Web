@@ -1,4 +1,4 @@
-package org.food.model;
+package org.food.security.payload.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

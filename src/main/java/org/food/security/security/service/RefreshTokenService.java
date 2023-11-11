@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.food.model.RefreshToken;
+import org.food.security.model.RefreshToken;
 import org.food.security.repository.RefreshTokenRepository;
 
 import org.food.security.repository.UserRepository;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RefreshTokenService {
-    @Value("${bezkoder.app.jwtRefreshExpirationMs}")
+    @Value("${jwtRefreshExpirationMs}")
     private Long refreshTokenDurationMs;
 
     @Autowired
