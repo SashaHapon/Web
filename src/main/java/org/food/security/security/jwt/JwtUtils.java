@@ -4,6 +4,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
+import lombok.extern.slf4j.Slf4j;
 import org.food.security.model.User;
 import org.food.security.security.service.UserDetailsImpl;
 import org.slf4j.Logger;
@@ -19,8 +20,9 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
+@Slf4j
 public class JwtUtils {
-    private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+    private Logger logger;
 
     @Value("${jwtSecret}")
     private String jwtSecret;
