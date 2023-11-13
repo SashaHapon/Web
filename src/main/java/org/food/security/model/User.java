@@ -1,6 +1,5 @@
 package org.food.security.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,17 +24,11 @@ public class User {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(max = 20)
     private String username;
 
-    @NotBlank
-    @Size(max = 50)
     @Email
     private String email;
 
-    @NotBlank
-    @Size
     private  String password;
 
     @ManyToMany(fetch = FetchType.LAZY)

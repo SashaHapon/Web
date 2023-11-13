@@ -1,4 +1,4 @@
-package org.food.exception;
+package org.food.exception.classes;
 
 public class ResourceNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;

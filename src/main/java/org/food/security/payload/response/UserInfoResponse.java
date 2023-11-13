@@ -8,13 +8,10 @@ import java.util.List;
 @Data
 public class UserInfoResponse {
 
-    private long id;
-
-    String username;
-
-    String email;
-
-    List<String> role;
+    private Long id;
+    private String username;
+    private String email;
+    private List<String> role;
 
     public UserInfoResponse(long id, String username, String email, List<String> role) {
         this.id = id;
