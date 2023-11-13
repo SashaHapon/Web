@@ -10,3 +10,4 @@ public class MessageResponse {
         this.message = message;
     }
 }
+

@@ -1,4 +1,4 @@
-package org.food.exception;
+package org.food.exception.classes;
 
 import java.util.Date;
 
