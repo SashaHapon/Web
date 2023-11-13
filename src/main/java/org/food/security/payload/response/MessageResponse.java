@@ -9,9 +9,5 @@ public class MessageResponse {
     public MessageResponse(String message) {
         this.message = message;
     }
-
-    public String massage(){
-        return message;
-    }
 }
 

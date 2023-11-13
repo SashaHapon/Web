@@ -1,6 +1,9 @@
 package org.food.security.security.service;
 
-import org.food.exception.TokenRefreshException;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.food.exception.classes.BadRequestException;
+import org.food.exception.classes.TokenRefreshException;
 import org.food.security.model.ERole;
 import org.food.security.model.RefreshToken;
 import org.food.security.model.Role;
@@ -13,7 +16,6 @@ import org.food.security.repository.RoleRepository;
 import org.food.security.repository.UserRepository;
 import org.food.security.security.jwt.JwtUtils;
 import org.food.security.security.service.api.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -22,32 +24,34 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    @NonNull
     private AuthenticationManager authenticationManager;
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
-    private PasswordEncoder encoder;
-    private JwtUtils jwtUtils;
-    private RefreshTokenService refreshTokenService;
 
-    @Autowired
-    public UserServiceImpl(AuthenticationManager authenticationManager, UserRepository userRepository
-            , RoleRepository roleRepository, PasswordEncoder encoder
-            , JwtUtils jwtUtils, RefreshTokenService refreshTokenService) {
-        this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.encoder = encoder;
-        this.jwtUtils = jwtUtils;
-        this.refreshTokenService = refreshTokenService;
-    }
+    @NonNull
+    private UserRepository userRepository;
+
+    @NonNull
+    private RoleRepository roleRepository;
+
+    @NonNull
+    private PasswordEncoder encoder;
+
+    @NonNull
+    private JwtUtils jwtUtils;
+
+    @NonNull
+    private RefreshTokenService refreshTokenService;
 
     @Override
     public ResponseEntity authenticateUser(LoginRequest loginRequest) {
@@ -77,20 +81,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity registerUser(SignupRequest signUpRequest) {
+    public MessageResponse registerUser(SignupRequest signUpRequest) {
 
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
+            throw new BadRequestException("Error: Username is already taken!");
         }
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+            throw new BadRequestException("Error: Email is already in use!");
         }
 
         User user = createUser(signUpRequest);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return new MessageResponse("User registered successfully!");
     }
 
     @Override
@@ -128,31 +132,31 @@ public class UserServiceImpl implements UserService {
                     })
                     .orElseThrow(() -> new TokenRefreshException(refreshToken,
                             "Refresh token is not in database!"));
+        } else {
+            throw new BadRequestException("Refresh Token is empty!");
         }
-
-        return ResponseEntity.badRequest().body(new MessageResponse("Refresh Token is empty!"));
     }
 
     @Override
-    public ResponseEntity addModeratorRole(User user) {
+    public MessageResponse addModeratorRole(User user) {
 
         Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         userRepository.findByUsername(user.getUsername());
         user.getRoles().add(modRole);
         userRepository.save(user);
-        return ResponseEntity.ok(new MessageResponse("Moderator role added to:" + user.getUsername()));
+        return new MessageResponse("Moderator role added to:" + user.getUsername());
     }
 
     @Override
-    public ResponseEntity addAdminRole(User user) {
+    public MessageResponse addAdminRole(User user) {
 
         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         userRepository.findByUsername(user.getUsername());
         user.getRoles().add(adminRole);
         userRepository.save(user);
-        return ResponseEntity.ok(new MessageResponse("Admin role added to:" + user.getUsername()));
+        return new MessageResponse("Admin role added to:" + user.getUsername());
     }
 
     private User createUser(SignupRequest signUpRequest) {

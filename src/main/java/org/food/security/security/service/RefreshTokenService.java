@@ -8,7 +8,7 @@ import org.food.security.model.RefreshToken;
 import org.food.security.repository.RefreshTokenRepository;
 
 import org.food.security.repository.UserRepository;
-import org.food.exception.TokenRefreshException;
+import org.food.exception.classes.TokenRefreshException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

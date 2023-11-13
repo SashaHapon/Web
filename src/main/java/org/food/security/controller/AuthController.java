@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.food.security.payload.request.LoginRequest;
 import org.food.security.payload.request.SignupRequest;
+import org.food.security.payload.response.MessageResponse;
 import org.food.security.security.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,25 +22,21 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    @ResponseBody
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         return userService.authenticateUser(loginRequest);
     }
 
     @PostMapping("/signup")
-    @ResponseBody
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public MessageResponse registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         return userService.registerUser(signUpRequest);
      }
 
     @PostMapping("/signout")
-    @ResponseBody
     public ResponseEntity<?> logoutUser() {
         return userService.logoutUser();
     }
 
     @PostMapping("/refreshtoken")
-    @ResponseBody
     public ResponseEntity<?> refreshtoken(HttpServletRequest request) {
         return  userService.refreshToken(request);
     }

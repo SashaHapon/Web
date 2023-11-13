@@ -1,6 +1,7 @@
 package org.food.security.controller;
 
 import org.food.security.model.User;
+import org.food.security.payload.response.MessageResponse;
 import org.food.security.security.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +25,14 @@ public class UserController {
     @ResponseBody
     @PostMapping("/mod")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity addModeratorRole(User user){
+    public MessageResponse addModeratorRole(User user){
         return userService.addModeratorRole(user);
     }
 
     @ResponseBody
     @PostMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity addAdminRole(User user){
+    public MessageResponse addAdminRole(User user){
         return userService.addAdminRole(user);
     }
 

@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface UserService {
     ResponseEntity authenticateUser(LoginRequest loginRequest);
-    ResponseEntity registerUser(SignupRequest signupRequest);
+    MessageResponse registerUser(SignupRequest signupRequest);
 
     ResponseEntity logoutUser();
 
     ResponseEntity refreshToken(HttpServletRequest request);
 
-    ResponseEntity addModeratorRole(User user);
+    MessageResponse addModeratorRole(User user);
 
-    ResponseEntity addAdminRole(User user);
+    MessageResponse addAdminRole(User user);
 }
