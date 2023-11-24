@@ -1,6 +1,6 @@
 package org.food.service;
 
-import org.food.api.repository.Dao;
+import org.food.api.repository.GenericDao;
 import org.food.api.service.MealService;
 import org.food.dao.MealRepositoryImpl;
 import org.food.dto.MealDto;
@@ -19,7 +19,7 @@ public class MealServiceImpl implements MealService {
 
         private ModelMapper modelMapper;
 
-        private Dao<Meal> mealDao;
+        private GenericDao<Meal> mealDao;
 
         @Autowired
         public MealServiceImpl(ModelMapper modelMapper, MealRepositoryImpl mealRepository){

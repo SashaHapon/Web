@@ -1,18 +1,19 @@
 package org.food.dao;
 
 
-import org.food.api.repository.Dao;
+import org.food.api.repository.GenericDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 
 @Component
-public abstract class AbstractDao<T> implements Dao<T> {
+public abstract class AbstractDao<T> implements GenericDao<T> {
 
-    @Autowired
-    EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     private Class<T> entityClass;
 

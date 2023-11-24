@@ -1,10 +1,8 @@
 package org.food.api.repository;
 
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
-public interface Dao<T> {
+public interface GenericDao<T> {
 
     T create(T entity);
 

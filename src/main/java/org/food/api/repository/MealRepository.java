@@ -5,15 +5,6 @@ import org.food.model.Meal;
 import java.util.List;
 
 
-public interface MealRepository extends Dao{
+public interface MealRepository extends GenericDao<Meal> {
 
-    Meal addMeal(Meal meal);
-
-    Meal getMeal(String id);
-
-    void deleteMealById(String id);
-
-    List<Meal> getAllMeal();
-
-    void update(Meal meal);
 }

@@ -1,5 +1,7 @@
 package org.food.api.repository;
 
-public interface OrderRepository extends Dao {
+import org.food.model.Order;
+
+public interface OrderRepository extends GenericDao<Order> {
 
 }

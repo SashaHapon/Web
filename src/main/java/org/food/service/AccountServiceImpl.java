@@ -1,6 +1,6 @@
 package org.food.service;
 
-import org.food.api.repository.Dao;
+import org.food.api.repository.GenericDao;
 import org.food.api.service.AccountService;
 import org.food.dao.AccountRepositoryImpl;
 import org.food.dto.AccountDto;
@@ -21,7 +21,7 @@ public class AccountServiceImpl implements AccountService {
 
     private ModelMapper modelMapper;
 
-    private Dao accountRepository;
+    private GenericDao accountRepository;
 
     @Autowired
     public AccountServiceImpl(ModelMapper modelMapper, AccountRepositoryImpl accountRepository) {

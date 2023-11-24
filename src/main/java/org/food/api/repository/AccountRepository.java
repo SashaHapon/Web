@@ -1,7 +1,8 @@
 package org.food.api.repository;
-import org.springframework.stereotype.Repository;
 
 
-public interface AccountRepository extends Dao {
+import org.food.model.Account;
+
+public interface AccountRepository extends GenericDao<Account> {
 
 }
