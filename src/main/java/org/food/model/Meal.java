@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "meal", schema = "mydb")
 @Getter
@@ -15,7 +17,7 @@ public class Meal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String name;
-    private double price;
+    private BigDecimal price;
     private int time;
     private String date;
 }

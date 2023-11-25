@@ -38,9 +38,7 @@ public class PersistenceContext {
         return new ModelMapper();
     }
 
-    // TODO: 24.11.2023 set prop @Value
     @Bean
-
     public DataSource dataSource() {
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
