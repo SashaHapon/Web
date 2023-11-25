@@ -8,11 +8,11 @@ public interface MealService {
 
     List<MealDto> getAll();
 
-    void addMeal(MealDto mealDto);
+    MealDto addMeal(MealDto mealDto);
 
-    MealDto getMeal(MealDto mealDto);
+    MealDto getMeal(Integer id);
 
-    void deleteMealById(MealDto mealDto);
+    void deleteMealById(Integer id);
 
     void update(MealDto mealDto);
 }

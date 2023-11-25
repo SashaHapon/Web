@@ -1,5 +1,6 @@
 package org.food.security.security;
 
+import lombok.RequiredArgsConstructor;
 import org.food.security.security.jwt.AuthEntryPointJwt;
 import org.food.security.security.jwt.AuthTokenFilter;
 import org.food.security.security.service.UserDetailsServiceImpl;
@@ -24,17 +25,12 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 @EnableWebSecurity
 @EnableMethodSecurity
 @EnableJpaRepositories
+@RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
-    private AuthEntryPointJwt unauthorizedHandler;
-
-    @Autowired
-    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {
-        this.userDetailsService = userDetailsService;
-        this.unauthorizedHandler = unauthorizedHandler;
-    }
+    private final AuthEntryPointJwt unauthorizedHandler;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -64,7 +60,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-               // .httpBasic().disable()
+                .httpBasic().disable()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

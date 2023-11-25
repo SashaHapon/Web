@@ -1,17 +1,21 @@
 package org.food.model;
 
 
-import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "order", schema = "mydb")
-@Data
+@Getter
+@Setter
 public class Order {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Meal.class)
@@ -19,20 +23,11 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Account.class)
     private Account account;
-    @Column(name = "account_Id")
-    private String accountId;
-    private double orderSum;
+
+    private BigDecimal orderSum;
+
     private int cookingTimeSum;
 
     @Column(name = "meal_Id")
     private String mealId;
-
-    public Order(){};
-    public Order(String id){
-        this.id = id;
-    }
-
-
-
-
 }

@@ -1,7 +1,7 @@
 package org.food.api.service;
 import org.food.dto.MealDto;
 import org.food.dto.OrderDto;
-import org.food.utils.MyException;
+import org.food.exception.classes.MyException;
 
 import java.util.List;
 

@@ -10,9 +10,9 @@ public interface AccountService {
 
     AccountDto addAccount(AccountDto accountDTO);
 
-    AccountDto getAccount(int id);
+    AccountDto getAccount(Integer id);
 
-    void deleteAccountById(int id);
+    void deleteAccountById(Integer id);
 
     void update(AccountDto accountDTO);
  }

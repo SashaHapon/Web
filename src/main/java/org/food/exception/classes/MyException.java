@@ -1,4 +1,4 @@
-package org.food.utils;
+package org.food.exception.classes;
 
 public class MyException extends RuntimeException {
 

@@ -1,25 +1,25 @@
 package org.food.security.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.food.security.payload.request.LoginRequest;
 import org.food.security.payload.request.SignupRequest;
 import org.food.security.payload.response.MessageResponse;
 import org.food.security.security.service.api.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    private UserService userService;
-
-    @Autowired
-    private AuthController(UserService userService){
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -29,7 +29,7 @@ public class AuthController {
     @PostMapping("/signup")
     public MessageResponse registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         return userService.registerUser(signUpRequest);
-     }
+    }
 
     @PostMapping("/signout")
     public ResponseEntity<?> logoutUser() {
@@ -38,6 +38,6 @@ public class AuthController {
 
     @PostMapping("/refreshtoken")
     public ResponseEntity<?> refreshtoken(HttpServletRequest request) {
-        return  userService.refreshToken(request);
+        return userService.refreshToken(request);
     }
 }

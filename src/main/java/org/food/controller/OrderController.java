@@ -5,11 +5,12 @@ import org.food.dto.MealDto;
 import org.food.dto.OrderDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.food.utils.MyException;
+import org.food.exception.classes.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+// TODO: 24.11.2023
 public class OrderController {
 
     OrderService orderService;

@@ -2,17 +2,18 @@ package org.food.dao;
 
 
 import org.food.api.repository.GenericDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 
 @Component
 public abstract class AbstractDao<T> implements GenericDao<T> {
 
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.TRANSACTION)
     private EntityManager entityManager;
 
     private Class<T> entityClass;
@@ -42,6 +43,7 @@ public abstract class AbstractDao<T> implements GenericDao<T> {
         entityManager.remove(entity);
     }
 
+    // TODO: 24.11.2023 пагинация
     @Override
     public List<T> findAll() {
         return entityManager.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e", entityClass)

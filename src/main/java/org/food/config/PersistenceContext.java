@@ -1,15 +1,13 @@
 package org.food.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javax.persistence.EntityManager;
-import org.food.utils.PropertyUtils;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.SharedEntityManagerCreator;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -20,7 +18,15 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 public class PersistenceContext {
-    PropertyUtils propertyUtils = new PropertyUtils("application.property");
+    @Value("${database.driverClassName}")
+    private String driverClassName;
+    @Value("${spring.datasource.url}")
+    private String databaseUrl;
+    @Value("${database.username}")
+    private String username;
+    @Value("${database.password}")
+    private String password;
+
 
     @Bean
     public ObjectMapper objectMapper() {
@@ -32,25 +38,18 @@ public class PersistenceContext {
         return new ModelMapper();
     }
 
+    // TODO: 24.11.2023 set prop @Value
     @Bean
+
     public DataSource dataSource() {
+
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName(propertyUtils.getProperty("driver"));
-//        dataSource.setUrl(propertyUtils.getProperty("url"));
-//        dataSource.setUsername(propertyUtils.getProperty("username"));
-//        dataSource.setPassword(propertyUtils.getProperty("password"));
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/mydb");
-        dataSource.setUsername("root");
-        dataSource.setPassword("12345");
+        dataSource.setDriverClassName(driverClassName);
+        dataSource.setUrl(databaseUrl);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
         return dataSource;
     }
-
-    @Bean
-    public EntityManager entityManagerCreator(){
-        return SharedEntityManagerCreator.createSharedEntityManager(entityManagerFactory().getObject());
-    }
-
 
     @Bean
     public PlatformTransactionManager transactionManager() {
@@ -59,13 +58,11 @@ public class PersistenceContext {
         return transactionManager;
     }
 
-
-
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        HibernateJpaVendorAdapter hibernateJpaVendorAdapter  = new HibernateJpaVendorAdapter();
+        HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
         hibernateJpaVendorAdapter.setShowSql(true);
         em.setEntityManagerInterface(hibernateJpaVendorAdapter.getEntityManagerInterface());
         em.setJpaVendorAdapter(hibernateJpaVendorAdapter);
@@ -74,7 +71,7 @@ public class PersistenceContext {
         return em;
     }
 
-    Properties additionalProperties() {
+    private Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
@@ -82,4 +79,11 @@ public class PersistenceContext {
         return properties;
     }
 
+//    @Bean
+//    public SpringLiquibase liquibase() {
+//        SpringLiquibase liquibase = new SpringLiquibase();
+//        liquibase.setChangeLog("classpath:liquibase-changeLog.xml");
+//        liquibase.setDataSource(dataSource());
+//        return liquibase;
+//    }
 }
