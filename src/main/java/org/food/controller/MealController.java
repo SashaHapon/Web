@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// TODO: 24.11.2023 fix
 @RestController
 @RequestMapping("/meals")
 @RequiredArgsConstructor
@@ -15,11 +14,10 @@ public class MealController {
 
     private final MealService mealService;
 
-    public List<MealDto> getAll(@RequestParam(defaultValue = "3", required = false) int limit,
-                                @RequestParam(required = false) int offset) {
+    public List<MealDto> getAll(@RequestParam(defaultValue = "1", required = false) int page,
+                                @RequestParam(defaultValue = "10", required = false) int size) {
 
-        // TODO: 25.11.2023 пагинация
-        return mealService.getAll();
+        return mealService.getAllMeals(page, size);
     }
 
     @PostMapping("/")

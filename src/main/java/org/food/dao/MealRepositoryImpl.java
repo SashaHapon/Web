@@ -1,6 +1,5 @@
 package org.food.dao;
 
-import org.food.api.repository.GenericDao;
 import org.food.api.repository.MealRepository;
 import org.food.model.Meal;
 import org.springframework.stereotype.Repository;

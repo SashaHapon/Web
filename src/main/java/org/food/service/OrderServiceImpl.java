@@ -11,6 +11,7 @@ import org.food.model.Meal;
 import org.food.model.Order;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -107,7 +108,6 @@ public class OrderServiceImpl implements OrderService {
 
         BigDecimal price = null;
         for (Meal meal : mealList) {
-
             price = price.add(meal.getPrice());
         }
         return price;

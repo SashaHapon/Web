@@ -14,12 +14,12 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    @GetMapping("/")
-    public List<AccountDto> getAllAccounts(@RequestParam(defaultValue = "3", required = false) int limit,
-                                           @RequestParam(required = false) int offset) {
 
-        // TODO: 18.10.2023 пагинация
-        return accountService.getAllAccounts();
+    @GetMapping("/")
+    public List<AccountDto> getAllAccounts(@RequestParam(defaultValue = "1", required = false) int page,
+                                           @RequestParam(defaultValue = "10",required = false) int size) {
+
+        return accountService.getAllAccounts(page, size);
     }
 
     @PostMapping("/")

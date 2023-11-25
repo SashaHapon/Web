@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface MealService {
 
-    List<MealDto> getAll();
+    List<MealDto> getAllMeals(int page, int size);
 
     MealDto addMeal(MealDto mealDto);
 

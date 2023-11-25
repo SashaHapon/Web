@@ -1,7 +1,6 @@
 package org.food.dao;
 
 import org.food.api.repository.AccountRepository;
-import org.food.api.repository.GenericDao;
 import org.food.model.Account;
 import org.springframework.stereotype.Repository;
 

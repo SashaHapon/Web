@@ -4,10 +4,10 @@ package org.food.dao;
 import org.food.api.repository.GenericDao;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import java.util.List;
 
 
 @Component
