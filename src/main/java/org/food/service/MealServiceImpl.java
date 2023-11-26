@@ -2,13 +2,11 @@ package org.food.service;
 
 import lombok.RequiredArgsConstructor;
 import org.food.api.repository.MealRepository;
-import org.food.api.repository.PaginationRepository;
 import org.food.api.service.MealService;
 import org.food.dto.MealDto;
 import org.food.model.Meal;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,13 +22,11 @@ public class MealServiceImpl implements MealService {
 
         private final MealRepository mealRepository;
 
-        private final PaginationRepository<Meal> mealPaginationRepository;
-
         @Override
-        public List<MealDto> getAllMeals(int page, int size){
-                PageRequest pageRequest = PageRequest.of(page, size);
+        public List<MealDto> getAllMeals(int id, int limit){
+
                 Type listType = new TypeToken<List<MealDto>>(){}.getType();
-                return modelMapper.map(mealPaginationRepository.findAll(pageRequest).stream().toList(),listType);
+                return modelMapper.map(mealRepository.findAll(id, limit),listType);
         }
 
         @Override
@@ -59,7 +55,4 @@ public class MealServiceImpl implements MealService {
 
                 mealRepository.update(modelMapper.map(mealDto, Meal.class));
         }
-
-
-
 }

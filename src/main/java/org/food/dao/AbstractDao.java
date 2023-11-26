@@ -1,9 +1,11 @@
 package org.food.dao;
 
 
+import lombok.RequiredArgsConstructor;
 import org.food.api.repository.GenericDao;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -11,16 +13,13 @@ import java.util.List;
 
 
 @Component
+@RequiredArgsConstructor
 public abstract class AbstractDao<T> implements GenericDao<T> {
 
     @PersistenceContext(type = PersistenceContextType.TRANSACTION)
     private EntityManager entityManager;
 
-    private Class<T> entityClass;
-
-    public AbstractDao(Class<T> entityClass) {
-        this.entityClass = entityClass;
-    }
+    private final Class<T> entityClass;
 
     @Override
     public T create(T entity) {
@@ -43,10 +42,15 @@ public abstract class AbstractDao<T> implements GenericDao<T> {
         entityManager.remove(entity);
     }
 
-    // TODO: 24.11.2023 пагинация
     @Override
-    public List<T> findAll() {
-        return entityManager.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e", entityClass)
-                .getResultList();
+    public List<T> findAll(int id, int limit) {
+
+        return entityManager.createQuery("SELECT e FROM " + entityClass.getSimpleName()
+                + " e ORDER BY e." + id + " ASC", entityClass).setMaxResults(limit).getResultList();
+    }
+
+    public T findOrderByIdWithEntityGraph(Integer id) {
+        EntityGraph<?> entityGraph = entityManager.getEntityGraph("order_entity_graph");
+        return entityManager.find(entityClass, id);
     }
 }

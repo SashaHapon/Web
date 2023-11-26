@@ -14,12 +14,11 @@ public class AccountController {
 
     private final AccountService accountService;
 
-
     @GetMapping("/")
-    public List<AccountDto> getAllAccounts(@RequestParam(defaultValue = "1", required = false) int page,
-                                           @RequestParam(defaultValue = "10",required = false) int size) {
+    public List<AccountDto> getAllAccounts(@RequestParam(defaultValue = "1", required = false) int id,
+                                           @RequestParam(defaultValue = "10",required = false) int limit) {
 
-        return accountService.getAllAccounts(page, size);
+        return accountService.getAllAccounts(id, limit);
     }
 
     @PostMapping("/")

@@ -11,7 +11,6 @@ import org.food.model.Meal;
 import org.food.model.Order;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -86,13 +85,18 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.update(order);
     }
 
-    // TODO: 24.11.2023 get order with meal use entityGraph/ fetchJoin
     @Override
     public List<MealDto> getAllMeals(Integer orderId) {
-
+        Order order = orderRepository.findOrderByIdWithEntityGraph(orderId);
         Type listType = new TypeToken<List<MealDto>>() {
         }.getType();
-        return modelMapper.map(orderRepository.findById(orderId), listType);
+        return modelMapper.map(order.getMeals(), listType);
+    }
+
+    @Override
+    public OrderDto findOrderByIdWithEntityGraph(Integer id) {
+
+        return modelMapper.map(orderRepository.findOrderByIdWithEntityGraph(id), OrderDto.class);
     }
 
     private int cookingTimeSum(List<Meal> mealList) {

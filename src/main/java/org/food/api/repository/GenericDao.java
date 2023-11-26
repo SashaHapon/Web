@@ -12,5 +12,7 @@ public interface GenericDao<T> {
 
     void delete(T entity);
 
-    List<T> findAll();
+    List<T> findAll(int id, int limit);
+
+    T findOrderByIdWithEntityGraph(Integer id);
 }

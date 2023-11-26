@@ -14,10 +14,10 @@ public class MealController {
 
     private final MealService mealService;
 
-    public List<MealDto> getAll(@RequestParam(defaultValue = "1", required = false) int page,
-                                @RequestParam(defaultValue = "10", required = false) int size) {
+    public List<MealDto> getAll(@RequestParam(defaultValue = "1", required = false) int id,
+                                @RequestParam(defaultValue = "10", required = false) int limit) {
 
-        return mealService.getAllMeals(page, size);
+        return mealService.getAllMeals(id, limit);
     }
 
     @PostMapping("/")

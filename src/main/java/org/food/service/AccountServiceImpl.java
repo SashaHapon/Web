@@ -1,7 +1,6 @@
 package org.food.service;
 
 import lombok.RequiredArgsConstructor;
-import org.food.api.repository.PaginationRepository;
 import org.food.api.repository.AccountRepository;
 import org.food.api.service.AccountService;
 import org.food.dto.AccountDto;
@@ -9,7 +8,6 @@ import org.food.model.Account;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,13 +24,11 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
 
-    private final PaginationRepository<Account> accountPaginationRepository;
     @Override
-    public List<AccountDto> getAllAccounts(int page, int size) {
+    public List<AccountDto> getAllAccounts(int id, int limit) {
 
-        PageRequest pageRequest = PageRequest.of(page, size);
         Type listType = new TypeToken<List<AccountDto>>() {}.getType();
-        return modelMapper.map(accountPaginationRepository.findAll(pageRequest).stream().toList(), listType);
+        return modelMapper.map(accountRepository.findAll(id, limit), listType);
     }
 
     @Override

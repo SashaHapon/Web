@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AccountService {
 
-    List<AccountDto> getAllAccounts(int page, int size);
+    List<AccountDto> getAllAccounts(int id, int limit);
 
     AccountDto addAccount(AccountDto accountDTO);
 

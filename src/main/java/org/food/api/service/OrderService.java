@@ -16,4 +16,6 @@ public interface OrderService {
     void removeMeals(Integer orderId, Integer[] mealsId);
 
     List<MealDto> getAllMeals(Integer orderId);
+
+    OrderDto findOrderByIdWithEntityGraph(Integer id);
 }
