@@ -1,7 +1,7 @@
 package org.food.api.service;
+
 import org.food.dto.MealDto;
 import org.food.dto.OrderDto;
-import org.food.exception.classes.MyException;
 
 import java.util.List;
 
@@ -16,6 +16,4 @@ public interface OrderService {
     void removeMeals(Integer orderId, Integer[] mealsId);
 
     List<MealDto> getAllMeals(Integer orderId);
-
-    OrderDto findOrderByIdWithEntityGraph(Integer id);
 }

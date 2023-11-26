@@ -93,12 +93,6 @@ public class OrderServiceImpl implements OrderService {
         return modelMapper.map(order.getMeals(), listType);
     }
 
-    @Override
-    public OrderDto findOrderByIdWithEntityGraph(Integer id) {
-
-        return modelMapper.map(orderRepository.findOrderByIdWithEntityGraph(id), OrderDto.class);
-    }
-
     private int cookingTimeSum(List<Meal> mealList) {
 
         int cookingTimeSum = 0;
