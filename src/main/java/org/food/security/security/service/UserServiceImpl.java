@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public MessageResponse addModeratorRole(User user) {
 
-        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+        Role modRole = roleRepository.findByName(ERole.MODERATOR)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         userRepository.findByUsername(user.getUsername());
         user.getRoles().add(modRole);
@@ -151,7 +151,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public MessageResponse addAdminRole(User user) {
 
-        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+        Role adminRole = roleRepository.findByName(ERole.ADMIN)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         userRepository.findByUsername(user.getUsername());
         user.getRoles().add(adminRole);
@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
         Set<Role> roles = new HashSet<>();
-        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+        Role userRole = roleRepository.findByName(ERole.USER)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         roles.add(userRole);
         user.setRoles(roles);
